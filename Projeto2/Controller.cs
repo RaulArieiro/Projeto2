@@ -60,7 +60,7 @@ namespace Projeto2
             }
             switch(escolha2){
                 case 1:
-                    MenuOrdenaçao(jogos);
+                    MenuOrdenacao(jogos);
 
                     break;
                 case 2:
@@ -94,14 +94,19 @@ namespace Projeto2
                     j.Numachievements
             );
         }
+        Console.WriteLine("Escreva sair para voltar para o menu principal ");
+        if(Console.ReadLine() == "sair" ){
+            break;
+        }
     }
+    MenuPrincipal(jogos);
 }
 
-        private void MenuOrdenaçao(IEnumerable<Jogo> jogos){
+        private void MenuOrdenacao(IEnumerable<Jogo> jogos){
             int escolha3;
 
             try{
-                escolha3 = int.Parse(view.MostrarMenuOrdenaçao());                
+                escolha3 = int.Parse(view.MostrarMenuOrdenacao());                
             }catch{
                 escolha3 = 0;
             }
@@ -135,67 +140,74 @@ namespace Projeto2
                     break;     
                 default:
                     view.MostrarErro();
-                    MenuOrdenaçao(jogos);
+                    MenuOrdenacao(jogos);
                     break;   
-            }          
+            } 
+            MenuPrincipal(jogos);         
         }
         private void MenuFlitragem(IEnumerable<Jogo> jogos){
             int escolha4;
 
             try{
-                escolha4 = int.Parse(view.MostrarMenuOrdenaçao());                
+                escolha4 = int.Parse(view.MostrarFlitragem());                
             }catch{
                 escolha4 = 0;
             }
             switch(escolha4){
                 case 1:
-                    jogos = jogos.OrderBy(game => game.ID);
+                    string guarda = view.nom();
+                    jogos = jogos.Where(game => game.Nome.Contains(guarda)).Select(game => game);
                     break;
                 case 2:
-                    jogos = jogos.OrderBy(Name => Name.Nome);
+                    string corda = view.datee();
+                    DateTime lanca = DateTime.TryParse(corda, out DateTime dat ) ? dat : DateTime.MinValue;                
+                    jogos = jogos.Where(game => game.Data > lanca).Select(game => game);
                     break;               
-                case 3: 
-                    jogos = jogos.OrderBy(Date => Date.Data);
+                case 3:                     
+                    int age = view.idad();
+                    jogos = jogos.Where(game => game.Idade > age).Select(game => game);
                     break;    
-                case 4:
-                    jogos = jogos.OrderBy(DLC => DLC.NumDLC);
+                case 4:                  
+                    int not = view.Not();
+                    jogos = jogos.Where(game => game.Nota > not).Select(game => game);
                     break;   
-                case 5:
-                    jogos = jogos.OrderBy(nota => nota.Nota);
+                case 5:                   
+                    int rem = view.Reeee();
+                    jogos = jogos.Where(game => game.NumRecom > rem).Select(game => game);
                 break;     
-                case 6:
-                    jogos = jogos.OrderBy(Recom => Recom.NumRecom);
+                case 6:               
+                    jogos = jogos.Where(game => game.Suporte == true).Select(game => game);
                     break;
                 case 7:
-                    jogos = jogos.OrderBy(suporta => suporta.Suporte);
+                    jogos = jogos.Where(game => game.Windows == true).Select(game => game);
                     break;  
                 case 8:
-                    jogos = jogos.OrderBy(window => window.Windows);
+                    jogos = jogos.Where(game => game.Linux == true).Select(game => game);
                     break;    
                 case 9:
-                    jogos = jogos.OrderBy(linux => linux.Linux);
+                    jogos = jogos.Where(game => game.Mac == true).Select(game => game);
                     break;   
                 case 10:
-                    jogos = jogos.OrderBy(mac => mac.Mac);
+                    jogos = jogos.Where(game => game.Single == true).Select(game => game);
                     break;
                 case 11:
-                    jogos = jogos.OrderBy(single => single.Single);
+                    jogos = jogos.Where(game => game.Multi == true).Select(game => game);
                     break;
                 case 12:
-                    jogos = jogos.OrderBy(multi => multi.Multi);
+                    jogos = jogos.Where(game => game.Cop == true).Select(game => game);
                     break;
                 case 13:
-                    jogos = jogos.OrderBy(edita => edita.Editor);
+                    jogos = jogos.Where(game => game.Editor == true).Select(game => game);
                     break;
                 case 14:
-                    jogos = jogos.OrderBy(vr => vr.VR);
+                    jogos = jogos.Where(game => game.VR == true).Select(game => game);
                     break;                    
                 default:
                     view.MostrarErro();
                     MenuFlitragem(jogos);
                     break;   
             }
-
+        MenuPrincipal(jogos);
         }
         
     }
