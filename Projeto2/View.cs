@@ -11,7 +11,8 @@ namespace Projeto2
         public string MostrarMenuPrincipal(){
             Console.WriteLine("\n1. Defenir pesquisa");
             Console.WriteLine("2. Realizar pesquisa");
-            Console.WriteLine("3. Sair \n");
+            Console.WriteLine("3. Sair");
+            Console.WriteLine("4. Adicionar jogo \n");
 
             return Console.ReadLine();
         }
@@ -82,11 +83,11 @@ namespace Projeto2
         }
         public int Not(){
            Console.WriteLine("Escreve a nota minima do jogo "); 
-           return Convert.ToInt32(Console.ReadLine());Console.ReadLine();
+           return Convert.ToInt32(Console.ReadLine());
         }
         public int Reeee(){
             Console.WriteLine("Escreve o numero minimo de recomendações do jogo ");
-            return Convert.ToInt32(Console.ReadLine());Console.ReadLine();
+            return Convert.ToInt32(Console.ReadLine());
         }
     }
 }

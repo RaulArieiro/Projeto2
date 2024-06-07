@@ -14,12 +14,17 @@ namespace Projeto2
             }
             return LerFicheiro(ficheiro);
         }
-        public IEnumerable<Jogo> LerFicheiro(string ficheiro){
+        public List<Jogo> LerFicheiro(string ficheiro){
+            List<Jogo> ids = new List<Jogo>();
             string linha;
             string[] dados;
             using(StreamReader sr = new StreamReader(ficheiro)){
-            sr.ReadLine();
+            using(StreamWriter sw = new StreamWriter("ficha.csv")){
+                
             
+            sr.ReadLine();
+            bool dubel = false;
+
                 while((linha = sr.ReadLine()) != null){
 
                     dados = linha.Split(',');
@@ -30,33 +35,44 @@ namespace Projeto2
                     Uri imagem = Uri.TryCreate(dados[22], 0, out Uri img) ? sup : null;
                     Uri website = Uri.TryCreate(dados[23], 0, out Uri web) ? sup : null;
 
-                    yield return new Jogo(
-                        int.Parse(dados[0]),
-                        dados[1],
-                        data,                        
-                        int.Parse(dados[3]),
-                        int.Parse(dados[4]),
-                        int.Parse(dados[5]),
-                        int.Parse(dados[6]),
-                        int.Parse(dados[7]),
-                        int.Parse(dados[8]),
-                        int.Parse(dados[9]),
-                        int.Parse(dados[10]),
-                        int.Parse(dados[11]),
-                        bool.Parse(dados[12]),
-                        bool.Parse(dados[13]),
-                        bool.Parse(dados[14]),
-                        bool.Parse(dados[15]),
-                        bool.Parse(dados[16]),
-                        bool.Parse(dados[17]),
-                        bool.Parse(dados[18]),
-                        bool.Parse(dados[19]),
-                        bool.Parse(dados[20]),
-                        suporte,
-                        dados[22],
-                        imagem,
-                        website
-                    );
+                    foreach(Jogo id in ids){                    
+                        if(id.ID == Convert.ToInt32(dados[0])){
+                             dubel = true;
+                        }   
+                    }               
+                            if(!dubel){
+                                Jogo Game = new Jogo(
+                                int.Parse(dados[0]),
+                                dados[1],
+                                data,                        
+                                int.Parse(dados[3]),
+                                int.Parse(dados[4]),
+                                int.Parse(dados[5]),
+                                int.Parse(dados[6]),
+                                int.Parse(dados[7]),
+                                int.Parse(dados[8]),
+                                int.Parse(dados[9]),
+                                int.Parse(dados[10]),
+                                int.Parse(dados[11]),
+                                bool.Parse(dados[12]),
+                                bool.Parse(dados[13]),
+                                bool.Parse(dados[14]),
+                                bool.Parse(dados[15]),
+                                bool.Parse(dados[16]),
+                                bool.Parse(dados[17]),
+                                bool.Parse(dados[18]),
+                                bool.Parse(dados[19]),
+                                bool.Parse(dados[20]),
+                                suporte,
+                                dados[22],
+                                imagem,
+                                website
+                                );
+                                ids.Add(Game);  
+                                sw.WriteLine(linha);                               
+                            }dubel = false;                                           
+                        }
+                    return ids;
                 }
             }
         }

@@ -43,12 +43,47 @@ namespace Projeto2
                 case 3:
                     Environment.Exit(0);
                     break;
+                case 4:
+                    Adcionar(jogos);
+                    break;    
                 default:
                     view.MostrarErro();
                     MenuPrincipal(jogos);
                     break;   
             }
 
+        }
+        public void Adcionar(IEnumerable<Jogo> jogos){
+            Jogo video = new Jogo(
+                    int.TryParse(Console.ReadLine(), out int id) ? id : 0,
+                    Console.ReadLine(),
+                    DateTime.TryParse(Console.ReadLine(), out DateTime Data) ? Data : DateTime.MinValue,
+                    int.TryParse(Console.ReadLine(), out int Idade) ? Idade : 0,
+                    int.TryParse(Console.ReadLine(), out int NumDLC) ? NumDLC : 0,
+                    int.TryParse(Console.ReadLine(), out int Nota) ? Nota : 0,
+                    int.TryParse(Console.ReadLine(), out int Numtralers) ? Numtralers : 0,
+                    int.TryParse(Console.ReadLine(), out int NumRecom) ? NumRecom : 0,
+                    int.TryParse(Console.ReadLine(), out int NumPrint) ? NumPrint : 0,
+                    int.TryParse(Console.ReadLine(), out int NumCompraram) ? NumCompraram : 0,
+                    int.TryParse(Console.ReadLine(), out int NumOfPlayers) ? NumOfPlayers : 0,
+                    int.TryParse(Console.ReadLine(), out int Numachievements) ? Numachievements : 0,
+                    bool.TryParse(Console.ReadLine(), out bool Suporte) ? Suporte : false,
+                    bool.TryParse(Console.ReadLine(), out bool Windows) ? Windows : false,
+                    bool.TryParse(Console.ReadLine(), out bool Linux) ? Linux : false,
+                    bool.TryParse(Console.ReadLine(), out bool Mac) ? Mac : false,
+                    bool.TryParse(Console.ReadLine(), out bool Single) ? Single : false,
+                    bool.TryParse(Console.ReadLine(), out bool Multi) ? Multi : false,                    
+                    bool.TryParse(Console.ReadLine(), out bool Cop) ? Cop : false,                    
+                    bool.TryParse(Console.ReadLine(), out bool Editor) ? Editor : false,                    
+                    bool.TryParse(Console.ReadLine(), out bool VR) ? VR : false,                    
+                    Uri.TryCreate(Console.ReadLine(), 0 , out Uri URL) ? URL : null,  
+                    Console.ReadLine(),
+                    Uri.TryCreate(Console.ReadLine(), 0 , out Uri Imagem) ? Imagem : null,                    
+                    Uri.TryCreate(Console.ReadLine(), 0 , out Uri Website) ? Website : null                                                      
+                    );
+                    jogos = jogos.Append(video);
+                    jogos = jogos.OrderBy(game => game.ID);
+                    MenuPrincipal(jogos);
         } 
         private void MenuSecundario(IEnumerable<Jogo> jogos){
             int escolha2;
